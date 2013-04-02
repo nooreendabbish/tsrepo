@@ -1,0 +1,16 @@
+innominate.pckg
+
+
+This is a package for R that takes pathnames and parameters.
+The function TimeSAnalysis takes returns pdfs of exploratory graphs,
+given filenames and parameters. 
+
+
+
+To install:
+
+
+
+# install.packages("devtools")
+library(devtools)
+install_github("")

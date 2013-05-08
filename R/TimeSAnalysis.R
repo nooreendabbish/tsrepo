@@ -1,6 +1,5 @@
 source('ReadNaRescale.R')
 source('GraphMaker.R')
-source('FeatureFinder.R')
 source('FeaturesMaker.R')
 source('DoKSTest.R')
 library(lattice)
@@ -28,7 +27,7 @@ TimeSAnalysis <- function (names, save.dir, thresholds, ...){
   }
   
   
-  feat.list <- FeatureFinder(ts.cols.paired, thresholds[1], thresholds[2])
+  feat.list <- FeatureBinder(ts.cols.paired, thresholds[1], thresholds[2])
   
   GraphMaker1(ts.cols.paired, names, save.dir)
   ksout <- DoKSTest(ts.cols.paired)

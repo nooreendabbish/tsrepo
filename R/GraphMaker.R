@@ -1,5 +1,5 @@
 library(lattice)
-
+library(healthvis)
 SummaryPlot <- function (times, series.a, series.b, 
                          label.a, label.b, ylabel, filename,dev.boolean = TRUE){
 
@@ -95,17 +95,19 @@ GraphMaker2 <- function(feat, label.groups, save.path){
     rows.a <- nrow(features.a)
     rows.b <- nrow(features.b)
     cols <- ncol(features.a)
-    groupids <- c(rep(1, times = rows.a),
-                  rep(2, times = rows.b))
+    groupids <- as.factor(c(rep(1, times = rows.a),
+                  rep(2, times = rows.b)))
     features <- matrix(, nrow = rows.a + rows.b, ncol = cols)
     features <- rbind(features.a, features.b)
     
     filename <- paste0(save.path,'spm',label.groups[n],
                        label.groups[n+1],'.pdf')
     pdf(filename, height = 11, width = 11)
-    splom(features, pch = groupids+19, col = groupids)
+    splom(features, pch = groupids, col = groupids)
     dev.off()
     
+    pairedVis(features, plot.title = "PairedVisTest")
+
     filename <- paste0(save.path,'kerneldens',label.groups[n],
                        label.groups[n+1],'.pdf')
     pdf(filename, height = 8.5, width = 11 )

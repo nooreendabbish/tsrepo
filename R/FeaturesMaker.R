@@ -4,14 +4,14 @@
 #'@param ts.cols.paired
 #'@param a.thresh the absolute threshold
 #'@param r.thresh fraction 
-#'
+#'@return returns the features created by FeaturesMaker
 FeatureBinder <- function(ts.cols.paired, a.thresh, r.thresh){
   
   num.sets <- (length(ts.cols.paired))
   feat.out <- list(list(),length= num.sets)
   for (k in 1:num.sets){
     for (j in 1:2){
-      print(a.thresh)
+      #print(a.thresh)
       data.holder <- ts.cols.paired[[k]][[j]][,-1]
       feat.out[[k]][[j]] <- FeaturesMaker(data.holder,
                                           a.thresh, r.thresh)
@@ -50,7 +50,7 @@ TimeToRel <- function(x, rel.frac){
 #'values are below a critical threshold. 
 TimeToDec <- function(ts, a.thresh){
   tmax <- which.max(ts)
-  print(tmax)
+ # print(tmax)
   t.decay <- which (ts[tmax:length(ts)]<a.thresh)
   if(is.na(t.decay[1])) tdecay <-length(ts)+2
   return(t.decay[1])
@@ -64,10 +64,10 @@ TimeToDec <- function(ts, a.thresh){
 TimeDecRel <- function(ts, r.thresh){
   thresh <- r.thresh*(max(ts))
   t.max <- which.max(ts)
-  t.decay <- which (ts[t.max:length(ts)]<r.thresh)
+  t.decay <- which(ts[t.max:length(ts)]<r.thresh)
   if(is.na(t.decay[1])) t.decay <- length(ts)+2
-  return(t.decay)
-  print(t.decay)
+  return(t.decay[1])
+  #print(t.decay)
 }
 
 
@@ -107,14 +107,17 @@ FeaturesMaker <- function (matrix.in, a.thresh, r.thresh){
                              function(x) TimeToThresh(x, a.thresh))
   output.matrix[,7] <- apply(matrix.in, 2, 
                              function(x) TimeToRel(x, r.thresh))
-  print(output.matrix[,7])
-  decaytime.temp <- apply(matrix.in, 2, 
+  #print("A")
+  #print(output.matrix[,7])
+  decaytime.temp <- apply(matrix.in, 2,
                            function(x) TimeToDec(x, r.thresh))
   
   
   output.matrix[,8] <- decaytime.temp - output.matrix[,6]
   decayrel.temp <- apply(matrix.in, 2, 
                          function(x) TimeDecRel(x, r.thresh))
+  #print("B")
+  #print(decayrel.temp)
   output.matrix[,9] <- decayrel.temp - output.matrix[,7]
   return(output.matrix)
 

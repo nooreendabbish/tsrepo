@@ -7,7 +7,7 @@ FeatureFinder <- function(ts.cols.paired, a.thresh, r.thresh){
   feat.out <- list(list(),length= num.sets)
   for (k in 1:num.sets){
       for (j in 1:2){
-      print(a.thresh)
+      #print(a.thresh)
       data.holder <- ts.cols.paired[[k]][[j]][,-1]
       feat.out[[k]][[j]] <- FeaturesMaker(data.holder,
                                          a.thresh, r.thresh)

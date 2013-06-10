@@ -1,3 +1,4 @@
+
 source('ReadNaRescale.R')
 source('GraphMaker.R')
 source('FeaturesMaker.R')
@@ -12,6 +13,7 @@ GetEllipsis <- function (...){
 #'Takes a list of paths to ts data and generates analysis files
 #'@param names this is a list of: the group names, the y-axis label
 #'@param save.dir this is the path to the folder where graphs will go
+#'@param thresholds this is a vector of the relative thresholds for each group
 #'@param ... list of paths to ts data
 #'@description this is the mother wrapper for this package
 TimeSAnalysis <- function (names, save.dir, thresholds, ...){

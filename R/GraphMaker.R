@@ -51,7 +51,7 @@ Grapher1 <- function(series.a, series.b, filename, num.row = 7,
 #'It will generate a summary plot showing mean, se, median curves
 #'@param ts time series data
 #'@param label.groups list of labels/groupnames, last entry is the y-units
-#'@export 
+#'@export this function calls Grapher1, which outputs to pdf
 GraphMaker1 <- function  (ts, label.groups, save.path){
 
   ts.col.all <- list()
@@ -87,6 +87,7 @@ GraphMaker1 <- function  (ts, label.groups, save.path){
 #' @param feat a list of paired lists of matrices/dataframes.
 #' @param label.groups groupnames in pairs followed by y-axis label
 #' @param save.path points to folder where outut should go.
+#' @export this function outputs the pdfs.
 GraphMaker2 <- function(feat, label.groups, save.path){
 
   for(n in seq(1, length(feat), by=2)){
@@ -106,7 +107,7 @@ GraphMaker2 <- function(feat, label.groups, save.path){
     splom(features, pch = groupids, col = groupids)
     dev.off()
     
-    pairedVis(features, plot.title = "PairedVisTest")
+    #pairedVis(features, plot.title = "PairedVisTest")
 
     filename <- paste0(save.path,'kerneldens',label.groups[n],
                        label.groups[n+1],'.pdf')
@@ -114,6 +115,10 @@ GraphMaker2 <- function(feat, label.groups, save.path){
     par(oma = c(1,1,1,1), mar = c(2,2,2,2), 
     mfrow = c(floor(sqrt(cols)), ceiling(sqrt(cols))))
 for (k in 1:cols){
+print(features[1:rows.a,k])
+
+  features[is.na(features)] <- 0 #stuck this in in order to force code to work.
+
   plot(density(features[1:rows.a,k]), main = colnames(features)[k])
 #       xlab = label.groups[-1])
   lines(density(features[(rows.a+1):(rows.a+rows.b),k]), col = 2)

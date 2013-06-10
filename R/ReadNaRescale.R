@@ -25,6 +25,7 @@ ReadNaRescale <- function (filename.a, filename.b){
 #'@param in.1 first time series matrix, first column should be timestamps.
 #'@param in.2 second time series matrix, first column should be timestamps.
 #'@description divides the first df or matrix by the global max
+#'@return function returns the rescaled first matrix
 Rescaler <- function(in.1, in.2){ 
   
   mat.a <- in.1[,-1]
